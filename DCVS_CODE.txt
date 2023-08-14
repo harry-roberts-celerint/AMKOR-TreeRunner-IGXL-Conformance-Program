@@ -1,0 +1,159 @@
+Public Function UC13_VS256_Cap_Meas_Conn(strPatSetName As pattern)
+' 1. Do this for all sites (Sheet 20).
+' 2. Unmerge all UVS256 channels (configure in the Channel Map).
+' 3. For each VS_X supply (1 through 12) disconnect all but one UVS256 channel.
+' 4. Source smallest current using the attached USV256 resource. Make two voltage measurements at two separate times using microcode method.
+' 5. Capacitors will charge quickly, so a small current and short time intervals are required.
+' 6. Use C= I dt/dV to calculate total capacitance for each supply and for each site.
+' 7. Repeat for all other UVS256 channels that are ganged together on the DIB (merged in the IC test application). This
+'    verifies UVS256 channel connections to DIB.
+' 8. Build test based on results.
+' 9. Thresholds TBD (+/-% of expected value).
+
+    Dim i As Integer
+    Dim site As Variant
+    Dim dT1 As New PinListData
+    Dim dT2 As New PinListData
+    Dim PinArr() As String, PinCount As Long
+    Dim cap_value(13) As Double
+    Dim hardware_change As Boolean
+    
+    Dim pldVDDa As New PinListData
+    Dim pldMIPI As New PinListData
+    Dim pldVS_3 As New PinListData
+    Dim pldEFUSE As New PinListData
+    Dim pldVS_5 As New PinListData
+    Dim pldVS_6 As New PinListData
+    Dim pldVS_7 As New PinListData
+    Dim pldVREF As New PinListData
+    Dim pldVADC As New PinListData
+    Dim pldVS_10 As New PinListData
+    Dim pldENETa As New PinListData
+    Dim pldQSPI As New PinListData
+    
+    Dim dspVDDa As New DSPWave
+    Dim dspMIPI As New DSPWave
+    Dim dspVS_3 As New DSPWave
+    Dim dspEFUSE As New DSPWave
+    Dim dspVS_5 As New DSPWave
+    Dim dspVS_6 As New DSPWave
+    Dim dspVS_7 As New DSPWave
+    Dim dspVREF As New DSPWave
+    Dim dspADC As New DSPWave
+    Dim dspVS_10 As New DSPWave
+    Dim dspENETa As New DSPWave
+    Dim dspQSPI As New DSPWave
+   
+    thehdw.Digital.ApplyLevelsTiming True, True, True, tlPowered
+    TheExec.DataManager.DecomposePinList "DCVS_PINSb", PinArr, PinCount
+       
+    Call Add_DCVS_PSet("VDDa", "VDDa_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_LV_MIPI", "MIPI_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_VS_3_PRB", "VS_3_PRB_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_HV_EFUSE", "EFUSE_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_VS_5_PRBa", "VS_5_PRBa_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_VS_6_PRB", "VS_6_PRB_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_VS_7_PRB", "VS_7_PRB_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_HV_VREF", "VREF_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_HV_ADC", "ADC_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_VS_10_PRBa", "VS_10_PRBa_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_HV_IO_ENETa", "IO_ENETa_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+    Call Add_DCVS_PSet("VDD_HV_IO_QSPI", "IO_QSPI_pset_1", 255, 0.02, 20000#, 2, 0.02, tlDCVSMeterVoltage, tlDCVSModeVoltage, 3.3, 3.3)
+       
+   
+    ' Initialize all the caps to 0 volts.
+    With thehdw.DCVS.Pins("VDDa")
+       .Voltage.Main.value = 0#                     ' Main Voltage (0.0V) Bleed caps down to 0 volts
+       .CurrentRange = 0.2
+       .Mode = tlDCVSModeVoltage                    ' Force Voltage Mode
+       .Meter.Mode = tlDCVSMeterVoltage             ' Meter in Voltage Mode
+       .Connect (tlDCVSConnectDefault)              ' Connect Force and Sense
+       .Gate = True                                 ' Gate Supply on
+    End With
+    
+    thehdw.wait (0.5)                               ' Bleed down time.
+        
+       
+    'Force a current into the caps.
+    thehdw.Patterns(strPatSetName).Start              'Run the test pattern
+    thehdw.Digital.TimeDomains("").Patgen.HaltWait
+    
+    pldVDDa = thehdw.DCVS.Pins("VDDa").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldMIPI = thehdw.DCVS.Pins("VDD_LV_MIPI").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVS_3 = thehdw.DCVS.Pins("VDD_VS_3_PRB").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldEFUSE = thehdw.DCVS.Pins("VDD_HV_EFUSE").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVS_5 = thehdw.DCVS.Pins("VDD_VS_5_PRBa").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVS_6 = thehdw.DCVS.Pins("VDD_VS_6_PRB").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVS_7 = thehdw.DCVS.Pins("VDD_VS_7_PRB").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVREF = thehdw.DCVS.Pins("VDD_HV_VREF").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVADC = thehdw.DCVS.Pins("VDD_HV_ADC").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldVS_10 = thehdw.DCVS.Pins("VDD_VS_10_PRBa").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldENETa = thehdw.DCVS.Pins("VDD_HV_IO_ENETa").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+    pldQSPI = thehdw.DCVS.Pins("VDD_HV_IO_QSPI").Meter.Read(tlNoStrobe, 2, , tlDCVIMeterReadingFormatArray)
+   
+    For Each site In TheExec.Sites
+       'Move the pinlist data into DSP arrays for processing.
+       dspVDDa.Data = pldVDDa.Pins("VDDa").value
+       dspMIPI.Data = pldMIPI.Pins("VDD_LV_MIPI").value
+       dspVS_3.Data = pldVS_3.Pins("VDD_VS_3_PRB").value
+       dspEFUSE.Data = pldEFUSE.Pins("VDD_HV_EFUSE").value
+       dspVS_5.Data = pldVS_5.Pins("VDD_VS_5_PRBa").value
+       dspVS_6.Data = pldVS_6.Pins("VDD_VS_6_PRB").value
+       dspVS_7.Data = pldVS_7.Pins("VDD_VS_7_PRB").value
+       dspVREF.Data = pldVREF.Pins("VDD_HV_VREF").value
+       dspADC.Data = pldVADC.Pins("VDD_HV_ADC").value
+       dspVS_10.Data = pldVS_10.Pins("VDD_VS_10_PRBa").value
+       dspENETa.Data = pldENETa.Pins("VDD_HV_IO_ENETa").value
+       dspQSPI.Data = pldQSPI.Pins("VDD_HV_IO_QSPI").value
+    Next site
+
+     ' the PinListData variable with simulation data
+    If TheExec.TesterMode = testModeOffline Then
+        For Each site In TheExec.Sites
+            dspVDDa.Element(0) = 0#: dspVDDa.Element(1) = 2.5
+            dspMIPI.Element(0) = 0#: dspMIPI.Element(1) = 2.5
+            dspVS_3.Element(0) = 0#: dspVS_3.Element(1) = 2.5
+            dspEFUSE.Element(0) = 0#: dspEFUSE.Element(1) = 2.5
+            dspVS_5.Element(0) = 0#: dspVS_5.Element(1) = 2.5
+            dspVS_6.Element(0) = 0#: dspVS_6.Element(1) = 2.5
+            dspVS_7.Element(0) = 0#: dspVS_7.Element(1) = 2.5
+            dspVREF.Element(0) = 0#: dspVREF.Element(1) = 2.5
+            dspADC.Element(0) = 0#: dspADC.Element(1) = 2.5
+            dspVS_10.Element(0) = 0#: dspVS_10.Element(1) = 2.5
+            dspENETa.Element(0) = 0#: dspENETa.Element(1) = 2.5
+            dspQSPI.Element(0) = 0#: dspQSPI.Element(1) = 2.5
+        Next site
+    End If
+    
+           
+    'Clean up
+    With thehdw.DCVS.Pins("DCVS_PINSa")
+        .Gate = False
+        .Disconnect
+    End With
+
+    'Datalog results
+    For Each site In TheExec.Sites.Selected
+        '  c      =    I       Dt  *                 Dv
+        cap_value(1) = 0.00123 * 0.0914 / (dspVDDa.Element(1).value - dspVDDa.Element(0).value)
+        cap_value(2) = 0.00123 * 0.0914 / (dspMIPI.Element(1).value - dspMIPI.Element(0).value)
+        cap_value(3) = 0.00123 * 0.0914 / (dspVS_3.Element(1).value - dspVS_3.Element(0).value)
+        cap_value(4) = 0.00123 * 0.0914 / (dspEFUSE.Element(1).value - dspEFUSE.Element(0).value)
+        cap_value(5) = 0.00123 * 0.0914 / (dspVS_5.Element(1).value - dspVS_5.Element(0).value)
+        cap_value(6) = 0.00123 * 0.0914 / (dspVS_6.Element(1).value - dspVS_6.Element(0).value)
+        cap_value(7) = 0.00123 * 0.0914 / (dspVS_7.Element(1).value - dspVS_7.Element(0).value)
+        cap_value(8) = 0.00123 * 0.0914 / (dspVREF.Element(1).value - dspVREF.Element(0).value)
+        cap_value(9) = 0.00123 * 0.0914 / (dspADC.Element(1).value - dspADC.Element(0).value)
+        cap_value(10) = 0.00123 * 0.0914 / (dspVS_10.Element(1).value - dspVS_10.Element(0).value)
+        cap_value(11) = 0.00123 * 0.0914 / (dspENETa.Element(1).value - dspENETa.Element(0).value)
+        cap_value(12) = 0.00123 * 0.0914 / (dspQSPI.Element(1).value - dspQSPI.Element(0).value)
+            
+        For i = 1 To 12
+            TheExec.Flow.TestLimitIndex = 0
+            If TheExec.Sites.Active Then TheExec.Flow.TestLimit ResultVal:=cap_value(i), unit:=unitCustom, customUnit:="Fd", _
+                                                                forceUnit:=unitNone, ForceResults:=tlForceFlow, PinName:=PinArr(i), _
+                                                                TName:="UC13_Cap_Val"
+        Next i
+    Next site
+
+End Function

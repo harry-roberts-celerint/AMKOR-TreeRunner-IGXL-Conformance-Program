@@ -1,0 +1,38 @@
+Function AddPSet(PinName As String, _
+                 PSetName As String, _
+                 BandwidthSetting As Double, _
+                 CurrentRange As Double, _
+                 SampleRate As Double, _
+                 SampleSize As Long, _
+                 SourceFoldLimit As Double, _
+                 MeterMode As tlDCVSMeterMode, _
+                 DCVSMode As tlDCVSMode, _
+                 MainVoltage As Double, _
+                 AltVoltage As Double _
+                 ) As Long
+   On Error GoTo ErrorHandler
+   Call TheHdw.DCVS.Pins(PinName).PSets.Add(PSetName)
+   With TheHdw.DCVS.Pins(PinName).PSets.Item(PSetName)
+      .BandwidthSetting.Value = BandwidthSetting
+      .CurrentRange.Value = CurrentRange
+      .Capture.SampleRate.Value = SampleRate
+      .Capture.SampleSize.Value = SampleSize
+      .CurrentLimit.Source.FoldLimit.Level.Value = SourceFoldLimit
+      .Meter.Mode = MeterMode
+      .Mode = DCVSMode
+      .Voltage.Main.Value = MainVoltage
+      .Voltage.Alt.Value = AltVoltage
+   End With
+Exit Sub
+ErrorHandler:
+   Dim Reply As Integer
+   Reply = MsgBox("Error detected during AddPSet(). Stop to Debug?", vbYesNo, "UVS256 PSet Checkout")
+   If Reply = vbYes Then
+      On Error GoTo ErrorHandler
+      Stop
+   Else
+      On Error GoTo 0
+   End If
+   Resume Next
+End Function
+

@@ -1,0 +1,165 @@
+# This file was generated on 08/05/19 at 17:32:28.
+
+#TesterConfig.txt loaded from: 
+
+# In order to load this configuration information in a pre-3.64.50
+# version of IG-XL, it must be converted to the version 0 format.
+# To convert this file from version 1 to version 0:
+#	1. Make a backup of this file.
+#	2. Copy the information between the tags <TEST_HEAD TH 1> and </TEST_HEAD TH 1>,
+#	   paste it into a new file, and save that file as SimulatedConfig.txt in the current test program's directory.
+#	3. Copy the information between the tags <BACKPLANE-DIB_CABLES TH 1> and </BACKPLANE-DIB_CABLES TH 1>,
+#	   paste it into a new file, and save that file as DibSlotConfig.txt in the current test program's directory.
+
+<Version>
+1
+</Version>
+
+<TESTER_INFO TI 1>
+TESTER SERIAL NUMBER: 1412F297
+TESTER PRODUCTION NUMBER: UF2865
+IG-XL VERSION: 8.10.14_uflx (P3)
+IG-XL BUILD: 01.20.15.08.58
+CONFIG DATE: 08/05/19
+CONFIG TIME: 17:32:28
+</TESTER_INFO TI 1>
+
+<TEST_HEAD TH 1>
+#slot[.subslot]	Type		idprom (type serial rev company)
+
+3.0		HexVS		974-294-30 0C39B18F 1748-A 5445
+		aka: 974-294-00,974-294-20
+   		HexVS		956-388-00 0C3A17CB 1330-A 5445
+   		HexVSAnalogBoard		956-387-10 0C3A19F4 1546-A 5445
+		aka: 956-387-00,956-387-01
+   		HexVSPowerBoard		939-266-02 0C3A185B 1748-B 5445
+5.0		UltraPAC		605-743-01 0C392151 1741-A 5445
+   		UltraPAC		939-420-01 0C391414 1741-A 5445
+   		UltraPAC-0		939-392-02 0C391C3C 1728-A 5445
+		aka: 939-392-01
+   		UltraPAC-1		939-392-02 0C391C39 1728-A 5445
+		aka: 939-392-01
+   		PowerBoard		608-806-01 0C391389 1741-A 5445
+		aka: 608-806-00
+6.0		HSD-U		604-356-03 c370bca 1550-A 5445
+   		HSD-U		612-073-00 c370c82 1508-A 5445
+   		PowerBoard		608-808-01 c37034d 1148-A 5445
+   		ChanBoard0		613-493-03 c370d10 1534-A 5445
+   		ChanBoard1		613-493-03 c370dfe 1534-A 5445
+7.0		HSD-U		604-356-03 c3327e5 1732-A 5445
+   		HSD-U		612-073-00 c33178d 1732-A 5445
+   		PowerBoard		608-808-01 c33174a 1732-A 5445
+   		ChanBoard0		613-493-03 c32f9ff 1732-A 5445
+   		ChanBoard1		613-493-03 c3326ee 1732-A 5445
+8.0		HSD-U		604-356-03 c326022 1732-A 5445
+   		HSD-U		612-073-00 c325a71 1732-A 5445
+   		PowerBoard		608-808-01 c325964 1732-A 5445
+   		ChanBoard0		613-493-03 c325d95 1732-A 5445
+   		ChanBoard1		613-493-03 c325872 1732-A 5445
+9.0		HSD-U		604-356-03 c3459bc 1508-A 5445
+   		HSD-U		612-073-00 c345b30 1508-A 5445
+   		PowerBoard		608-808-01 c345af4 1148-A 5445
+   		ChanBoard0		613-493-03 c345ec7 1441-A 5445
+   		ChanBoard1		613-493-03 c345ed4 1441-A 5445
+13.0		HexVS		974-294-30 0C39B18A 1748-A 5445
+		aka: 974-294-00,974-294-20
+    		HexVS		956-388-00 0C3A17BF 1330-A 5445
+    		HexVSAnalogBoard		956-387-10 0C3A19F5 1546-A 5445
+		aka: 956-387-00,956-387-01
+    		HexVSPowerBoard		939-266-02 0C3A184C 1748-B 5445
+14.0		VHDVS		805-052-05 0C3571AA 1540-A 5445
+    		VHDVS		939-420-01 0C3567E2 1540-A 5445
+14.1		VHDVSPower		805-054-00 0C362568 1510-A 5445
+    		VHDVSPower		606-103-01 0C362568 1510-A 5445
+14.2		VHDVSRider-0		805-053-00 0C36A554 1510-A 5445
+    		VHDVSRider-0		939-421-02 0C36A554 1510-A 5445
+14.3		VHDVSRider-1		805-053-00 0C36A077 1510-A 5445
+    		VHDVSRider-1		939-421-02 0C36A077 1510-A 5445
+17.0		DC-07		604-375-02 0C32F5D4 1330-A 5445
+		aka: 604-375-00
+    		DC-07		939-420-01 0C3284A0 1150-A 5445
+		aka: 939-420-00
+    		DC-07Rider-0		604-534-02 0C32F9A9 1241-A 5445
+		aka: 604-534-00
+    		DC-07Rider-1		610-617-02 0C32F971 1241-A 5445
+		aka: 610-617-00
+    		DC-07Power		608-807-01 0C328494 1201-A 5445
+		aka: 608-807-00
+18.0		HexVS		974-294-30 0C39B17C 1748-A 5445
+		aka: 974-294-00,974-294-20
+    		HexVS		956-388-00 0C3A17C2 1330-A 5445
+    		HexVSAnalogBoard		956-387-10 0C3A1887 1546-A 5445
+		aka: 956-387-00,956-387-01
+    		HexVSPowerBoard		939-266-02 0C3A1874 1748-B 5445
+19.0		HexVS		974-294-30 0C39A637 1748-A 5445
+		aka: 974-294-00,974-294-20
+    		HexVS		956-388-00 0C3A17E2 1330-A 5445
+    		HexVSAnalogBoard		956-387-10 0C3A19F1 1546-A 5445
+		aka: 956-387-00,956-387-01
+    		HexVSPowerBoard		939-266-02 0C3A186E 1748-B 5445
+21.0		HexVS		974-294-30 0C39B165 1748-A 5445
+		aka: 974-294-00,974-294-20
+    		HexVS		956-388-00 0C3A17E4 1330-A 5445
+    		HexVSAnalogBoard		956-387-10 0C3A188F 1546-A 5445
+		aka: 956-387-00,956-387-01
+    		HexVSPowerBoard		939-266-02 0C3A1857 1748-B 5445
+23.0		VHDVS		805-052-05 0C3614A5 1540-A 5445
+    		VHDVS		939-420-01 0C356970 1540-A 5445
+23.1		VHDVSPower		805-054-00 0C356418 1510-A 5445
+    		VHDVSPower		606-103-01 0C356418 1510-A 5445
+23.2		VHDVSRider-0		805-053-00 0C356459 1510-A 5445
+    		VHDVSRider-0		939-421-02 0C356459 1510-A 5445
+23.3		VHDVSRider-1		805-053-00 0C360E38 1510-A 5445
+    		VHDVSRider-1		939-421-02 0C360E38 1510-A 5445
+24.0		SupportBoard		974-221-03 c318b6a 1312-B 5445
+    		SupportBoard		956-416-30 c3218bc 1228-B 5445
+    		PowerBoard		956-359-10 c32189d 1312-C 5445
+    		TCM		956-419-02 c3218ce 0951-C 5445
+    		XGEM		956-364-00 c32f740 0336-A 5445
+    		DCCM		949-938-23 C321887 0929-C 5445
+25.0		SupportBoard		974-221-11 c3296a3 1308-B 5445
+    		SupportBoard		956-416-31 c329d7e 1228-B 5445
+    		PowerBoard		956-359-21 c329d6b 0744-C 5445
+62.0		DistributionBoard		956-455-00 c32f677 0814-A 5445
+    		DistributionBoard		613-526-61 c32f677 1404-A 5445
+63.0		DistributionBoard		956-455-00 c32f67f 0814-A 5445
+    		DistributionBoard		613-526-61 c32f67f 1404-A 5445
+</TEST_HEAD TH 1>
+
+<LICENSE_ENABLERS>
+#Off-line enabling levels
+#FEATURE                      ENABLED LEVEL    LICENSE COUNT    LEGAL ENABLING POINTS
+DC30                          1                N/A              1,0
+DSPPCConcurrentAlgCount       8                N/A              128,126,124,122,120,118,116,114,112,110,108,106,104,102,100,98,96,94,92,90,88,86,84,82,80,78,76,74,72,70,68,66,64,62,60,58,56,54,52,50,48,46,44,42,40,38,36,34,32,30,28,26,24,22,20,18,16,14,12,10,8,6,4,2
+EdgeSets                      32               N/A              32,16,8,4,2,1
+GigaDig                       48               N/A              48,46,44,42,40,38,36,34,32,30,28,26,24,22,20,18,16,14,12,10,8,6,4,2,1,0
+GigaDigMaxCapSize             8                N/A              8,1
+GigaDigNumClocks              2                N/A              2,1
+HDVS1Channels                 48               N/A              768,288,280,272,264,256,248,240,232,224,216,208,200,192,184,176,168,160,152,144,136,128,120,112,104,96,88,80,72,64,56,48,40,32,24,16,8,0
+HSD_DSSC                      1                64               1,0
+HSD_MemoryDepth               1024             92               1024,512,256,128,96,64,32,16,8
+HSD_MemoryDepth               512              16               1024,512,256,128,96,64,32,16,8
+HSD_MemoryDepth               256              16               1024,512,256,128,96,64,32,16,8
+HSD_MTO                       1                64               1,0
+HSD_SCAN                      1                16               1,0
+HSD_Speed                     1600             56               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     1000             47               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     800              40               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     400              16               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     200              86               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD_Speed                     100              16               1600,1500,1400,1300,1200,1100,1000,800,700,600,500,400,300,200,100,50
+HSD1600_Channels              1                8                1
+HSD800_FocusedCal             1                N/A              1,0
+HSS_Speed                     6400             11               6400,3200
+HSS_Speed                     3200             21               6400,3200
+IG-XL_Bitmap                  N/A              N/A              N/A              
+IG-XL_TesterServiceDaemon     N/A              N/A              N/A              
+MainSlots                     24               N/A              36,24,16,12,8,6,4
+nWireEngine                   1                56               1
+TimeSets                      256              N/A              256,128,64,32,16,8
+UltraCapture                  75               56               75,40,3
+UltraSource                   80               56               80,40,3
+UltraSource                   3                8                80,40,3
+UltraVIChannel                1                80               1
+</LICENSE_ENABLERS>
+

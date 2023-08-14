@@ -1,0 +1,133 @@
+Public Function UC09_VS256_Cap_Leak()
+' 1. Unmerge all UVS256 channels (configure in the Channel Map).
+' 2. For each VS_X supply (1 through 12) disconnect all but one UVS256 channel.
+' 3. Force voltage using the attached USV256 resource. Let the capacitor banks charge and settle.
+' 4. Use the YVS256 resource to measure leakage current.
+' 5. Repeat for all other UVS256 channels that are ganged together on the DIB (merged in the IC test application). This verifies UVS256 channel connections to DIB.
+' 6. Build test based on results.
+' 7. Thresholds TBD.
+' 8. Implement for all sites.
+    Dim i As Integer
+    Dim site As Variant
+    Dim PinArr_a() As String, PinCount_a As Long
+    Dim PinArr_b() As String, PinCount_b As Long
+    Dim PinArr_c() As String, PinCount_c As Long
+    Dim PinArr_d() As String, PinCount_d As Long
+
+    Dim VDD_LEAK_a As New PinListData
+    Dim VDD_LEAK_b As New PinListData
+    Dim VDD_LEAK_c As New PinListData
+    Dim VDD_LEAK_d As New PinListData
+        
+    TheHdw.Digital.ApplyLevelsTiming True, True, True, tlPowered
+    
+    TheExec.DataManager.DecomposePinList "DCVS_PINSa", PinArr_a, PinCount_a
+    TheExec.DataManager.DecomposePinList "DCVS_PINSb", PinArr_b, PinCount_b
+    TheExec.DataManager.DecomposePinList "DCVS_PINSc", PinArr_c, PinCount_c
+    TheExec.DataManager.DecomposePinList "DCVS_PINSd", PinArr_d, PinCount_d
+    
+      'This sets the capacitance compensation bandwidth.
+    TheHdw.DCVS.Pins("DCVS_PINSa,DCVS_PINSb,DCVS_PINSc,DCVS_PINSd").Gate = False
+    TheHdw.DCVS.Pins("VS_Caps_6").BandwidthSetting.value = 6
+    TheHdw.DCVS.Pins("VS_Caps_5").BandwidthSetting.value = 5
+    TheHdw.DCVS.Pins("VS_Caps_4").BandwidthSetting.value = 4
+     
+  ' Setup all supplies merged and un-merged.
+    With TheHdw.DCVS.Pins("DCVS_PINSa,DCVS_PINSb,DCVS_PINSc,DCVS_PINSd")
+     .Gate = False ' You must turn off gate to change fold limit timeout value
+     .CurrentRange.value = 0.2
+     .CurrentLimit.Source.FoldLimit.Level.value = 0.2
+     .CurrentLimit.Source.FoldLimit.TimeOut.value = 0.01
+     .CurrentLimit.Source.FoldLimit.Behavior = tlDCVSCurrentLimitBehaviorGateOff
+     .CurrentLimit.Sink.FoldLimit.Level.value = 0.075
+     .CurrentLimit.Sink.FoldLimit.TimeOut.value = 0.01
+     .CurrentLimit.Sink.FoldLimit.Behavior = tlDCVSCurrentLimitBehaviorGateOff
+     .LocalCapacitor = tlDCVSOff
+     .Voltage.Main.value = 3#
+     .Voltage.Alt.value = 3#
+     .Voltage.output = tlDCVSVoltageMain
+     .Mode = tlDCVSModeVoltage
+     .Connect (tlDCVSConnectDefault)
+     .Gate = True
+    End With
+  
+    'Only look at GroupA pins.
+    TheHdw.DCVS.Pins("DCVS_PINSb,DCVS_PINSc,DCVS_PINSd").Gate = False
+  
+    TheHdw.Wait (0.1)
+
+    'Measured current should be leakage level… no alarms.
+    VDD_LEAK_a = TheHdw.DCVS.Pins("DCVS_PINSa").Meter.Read(tlStrobe, 100)
+            
+    TheHdw.DCVS.Pins("DCVS_PINSa").Gate = False
+    TheHdw.DCVS.Pins("DCVS_PINSb").Gate = True
+          
+    TheHdw.Wait (0.1)
+    
+    'Measured current should be leakage level… no alarms.
+    VDD_LEAK_b = TheHdw.DCVS.Pins("DCVS_PINSb").Meter.Read(tlStrobe, 100)
+    
+    TheHdw.DCVS.Pins("DCVS_PINSb").Gate = False
+    TheHdw.DCVS.Pins("DCVS_PINSc").Gate = True
+       
+    TheHdw.Wait (0.1)
+
+    'Measured current should be leakage level… no alarms.
+    VDD_LEAK_c = TheHdw.DCVS.Pins("DCVS_PINSc").Meter.Read(tlStrobe, 100)
+    
+    TheHdw.DCVS.Pins("DCVS_PINSc").Gate = False
+    TheHdw.DCVS.Pins("DCVS_PINSd").Gate = True
+       
+    TheHdw.Wait (0.1)
+
+    'Measured current should be leakage level… no alarms.
+    VDD_LEAK_d = TheHdw.DCVS.Pins("DCVS_PINSd").Meter.Read(tlStrobe, 100)
+    
+    'Clean up
+    TheHdw.DCVS.Pins("DCVS_PINSa,DCVS_PINSb,DCVS_PINSc,DCVS_PINSd").Gate = False
+
+    
+    ' Create off-line data.
+    If TheExec.TesterMode = testModeOffline Then
+        For Each site In TheExec.Sites
+            For i = 0 To PinCount_a - 1
+                VDD_LEAK_a.Pins.Item(i).value = 0.000001 + (Rnd * 0.000001)
+            Next i
+            For i = 0 To PinCount_b - 1
+                VDD_LEAK_b.Pins.Item(i).value = 0.000002 + (Rnd * 0.000001)
+            Next i
+            For i = 0 To PinCount_c - 1
+                VDD_LEAK_c.Pins.Item(i).value = 0.000003 + (Rnd * 0.000001)
+            Next i
+            For i = 0 To PinCount_d - 1
+                VDD_LEAK_d.Pins.Item(i).value = 0.000004 + (Rnd * 0.000001)
+            Next i
+        Next site
+    End If
+    
+    'Data log results
+    For Each site In TheExec.Sites.Selected
+            TheExec.Flow.TestLimitIndex = 0
+            
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(0).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(0), TName:="UC09_VS1_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_b.Pins.Item(0).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_b(0), TName:="UC09_VS1_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_c.Pins.Item(0).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_c(0), TName:="UC09_VS1_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_d.Pins.Item(0).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_d(0), TName:="UC09_VS1_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(1).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(1), TName:="UC09_VS2_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(2).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(2), TName:="UC09_VS3_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(3).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(3), TName:="UC09_VS4_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(4).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(4), TName:="UC09_VS5_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_b.Pins.Item(1).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_b(1), TName:="UC09_VS5_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(5).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(5), TName:="UC09_VS6_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(6).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(6), TName:="UC09_VS7_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(7).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(7), TName:="UC09_VS8_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(8).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(8), TName:="UC09_VS9_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(9).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(9), TName:="UC09_VS10_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_b.Pins.Item(2).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_b(2), TName:="UC09_VS10_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(10).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(10), TName:="UC09_VS11_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_b.Pins.Item(3).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_b(3), TName:="UC09_VS11_Leak"
+                TheExec.Flow.TestLimit ResultVal:=VDD_LEAK_a.Pins.Item(11).value, unit:=unitAmp, forceUnit:=unitNone, ForceResults:=tlForceFlow, pinname:=PinArr_a(11), TName:="UC09_VS12_Leak"
+     Next site
+    
+
+End Function

@@ -1,0 +1,70 @@
+Public Function old_UC01_Propagation_Delay()
+    Dim i As Integer
+    Dim j As Integer
+    Dim site As Variant
+    Dim value As Double
+    Dim row(28) As String
+    Dim col(28) As String
+    Dim cell As String
+    Dim pin_name As String
+    Dim propogation_speed As Double
+    
+    propogation_speed = 0.000000000165
+    
+    col(0) = "B"
+    col(1) = "c"
+    col(2) = "d"
+    col(3) = "e"
+    col(4) = "f"
+    col(5) = "g"
+    col(6) = "h"
+    col(7) = "i"
+    col(8) = "j"
+    col(9) = "k"
+    col(10) = "l"
+    col(11) = "m"
+    col(12) = "n"
+    col(13) = "o"
+    col(14) = "p"
+    col(15) = "q"
+    col(16) = "r"
+    col(17) = "s"
+    col(18) = "t"
+    col(19) = "u"
+    col(20) = "v"
+    col(21) = "w"
+    col(22) = "x"
+    col(23) = "y"
+    col(24) = "z"
+    col(25) = "aa"
+    col(26) = "ab"
+    col(27) = "ac"
+    
+   
+' 1. Create length constants for transmission lines of known length.
+' 2. Calculate propagation delay (speed) using speed = trace length / TDR test fixture transit time.
+    
+    For Each site In TheExec.Sites.Selected
+        For i = 2 To 36
+            cell = "A" & i
+            pin_name = Worksheets("TraceLengths").Range(cell).value
+            
+            cell = col(site) & i
+            value = Worksheets("TraceLengths").Range(cell).value
+            value = value / 1000                'Convert mils to inches.
+            value = value * propogation_speed   '150ps or 180ps averaged out to 165ps.
+            
+            cell = col(site) & i + 100
+            Worksheets("TraceLengths").Range(cell).value = value
+            
+            TheExec.Flow.TestLimitIndex = 0
+            TheExec.Flow.TestLimit ResultVal:=value, _
+                                unit:=unitNone, _
+                                forceUnit:=unitNone, _
+                                ForceResults:=tlForceFlow, _
+                                PinName:=pin_name, _
+                                TName:="UC01_Calc_Dly"
+        Next i
+    Next site
+    
+End Function

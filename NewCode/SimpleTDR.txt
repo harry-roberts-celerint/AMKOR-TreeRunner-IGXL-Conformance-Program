@@ -1,0 +1,166 @@
+Public Function Simple_TDR(numsamps As Long, period As Double, timesteps As Long, voltstrt As Double, voltstop As Double, voltsteps As Long, pgroup As String, patname As String, Optional strtlab As String)
+    Dim fcpl As New PinListData
+    Dim vincr As Double, tincr As Double, currv As Double, currt As Double
+    Dim vcnt As Long, tcnt As Long, pcnt As Long, fcnt As Long, numpins As Long
+    Dim plist() As String, output As String, datFile As String, pstrng As String
+    Dim tSite As Variant
+    Dim vlev(3) As Double
+    Dim i As Integer
+    Dim cell As String
+    Dim col(28) As String
+    Dim pinname As String
+    Dim offset As Integer, offset2 As Integer
+    Dim Path_Time As Double, TS1 As Double, TS2 As Double
+    Dim Path_length As Double
+    Dim Er As Double
+    
+    offset = 2
+    
+    vlev(0) = voltstop * 0.25
+    vlev(1) = voltstop * 0.75
+    
+    On Error GoTo errHandler
+    
+    ' get the list of pins in the pin group
+    Call TheExec.DataManager.DecomposePinList(pgroup, plist(), numpins)
+    
+    Sheets("TDR_WorkSheet").Cells.ClearContents
+    
+    'Create labels
+    For i = 0 To numpins - 1
+        Worksheets("TDR_WorkSheet").Range("A1").offset(1 + i).value = plist(i) & "_TS1"
+        Worksheets("TDR_WorkSheet").Range("A1").offset(1 + i + numpins + 2).value = plist(i) & "_TS2"
+    Next i
+    
+    For Each tSite In TheExec.Sites.Active
+        Worksheets("TDR_WorkSheet").Range("A1").offset(0, tSite + 1).value = "Site_" & tSite
+    Next tSite
+    
+    ' load levels and timing
+    TheHdw.Digital.ApplyLevelsTiming True, True, False, tlPowered
+    ' ensure pattern is loaded
+    TheHdw.Patterns(patname).Load
+    
+    ' calculate time increment - can move drive edge 4 periods
+    If timesteps <> 0 Then
+        tincr = (period * 3) / timesteps
+    Else
+        MsgBox ("Time Steps must not be zero, aborting")
+        Exit Function
+    End If
+    
+    ' calculate voltage incement
+    If voltsteps <> 0 Then
+        vincr = (voltstop - voltstrt) / voltsteps
+    Else
+        MsgBox ("Voltage Steps must not be zero, aborting")
+        Exit Function
+    End If
+    
+    ' set pattern loop counter to number of samples per shmoo point.  This is for jitter.
+    If numsamps <> 0 Then
+        TheHdw.Digital.Patgen.Counter(tlPgCounter4) = numsamps
+    Else
+        MsgBox ("Number of samples must not be zero, aborting")
+        Exit Function
+    End If
+    
+    ' init voltage
+    currv = voltstrt
+    ' iterate through voltages
+    For i = 0 To 1
+        If i = 0 Then
+            offset2 = 0
+        Else
+            offset2 = numpins + 2
+        End If
+        
+        ' set the current vol value
+        TheHdw.Digital.Pins(pgroup).Levels.value(chVol) = vlev(i)
+        ' init timing
+        currt = period * 3
+        
+        ' iterate through times
+        For tcnt = 0 To timesteps - 1
+            ' adjust timing
+            TheHdw.Digital.Pins(pgroup).Timing.EdgeTime("TSet3", chEdgeR0) = currt
+            
+            ' start the pattern
+            Call TheHdw.Patterns(patname).Start(strtlab)
+            Call TheHdw.Digital.Patgen.HaltWait
+    
+            ' get the failing counts
+            fcpl = TheHdw.Digital.Pins(pgroup).FailCount
+            output = ""
+            
+            ' iterate through sites
+            For Each tSite In TheExec.Sites.Active
+                ' iterate through the pins
+                For pcnt = 0 To numpins - 1
+                    fcnt = fcpl.Pins(pcnt).value(tSite)         'Normal data
+                    
+                    If TheExec.TesterMode = testModeOffline Then
+                        Select Case (offset2)
+                            Case 0
+                                If tcnt = timesteps * (5 / 6) Then
+                                    fcnt = 0
+                                Else
+                                    fcnt = numsamps
+                                End If
+                            Case numpins + 2
+                                If tcnt = timesteps * (4 / 6) Then
+                                    fcnt = 0
+                                Else
+                                    fcnt = numsamps
+                                End If
+                        End Select
+                    End If
+                    
+                        fcnt = fcnt
+                        
+                        If fcnt = 0 Then
+                            'cell = col(tSite + 1) & pcnt + offset + offset2
+                            If Worksheets("TDR_WorkSheet").Range("A1").offset(offset2 + pcnt + 1, tSite + 1).value = 0 Then
+                                Worksheets("TDR_WorkSheet").Range("A1").offset(offset2 + pcnt + 1, tSite + 1).value = currt
+                            End If
+                        End If
+                    
+                Next pcnt
+            Next tSite
+            currt = currt - tincr
+        Next tcnt
+                
+        ' bump up voltage
+        currv = currv + vincr
+    Next i
+    
+    
+    'Datalog results
+    For Each tSite In TheExec.Sites.Selected
+        For i = 0 To pcnt - 1
+            TheExec.Flow.TestLimitIndex = 0
+            TS1 = Worksheets("TDR_WorkSheet").Range("A1").offset(i + 1, tSite + 1).value
+            TS2 = Worksheets("TDR_WorkSheet").Range("A1").offset(i + 1 + numpins + 2, tSite + 1).value
+            Path_length = Worksheets("TraceLengths").Range("A1").offset(i + 1, tSite + 1).value
+            
+            Path_Time = ((TS2 - TS1) / 2) * 1000000000#
+            
+            Path_length = (Path_length / 1000)
+            
+            Er = 34.875 * Path_Time ^ 2 / Path_length ^ 2
+            
+            If TheExec.Sites.Active Then TheExec.Flow.TestLimit ResultVal:=Er, _
+                                                                unit:=unitNone, _
+                                                                forceUnit:=unitNone, _
+                                                                ForceResults:=tlForceFlow, _
+                                                                pinname:=plist(i), _
+                                                                TName:="Er"
+        Next i
+    Next tSite
+        
+    Exit Function
+
+errHandler:
+     If AbortTest Then Exit Function Else Resume Next
+End Function
+

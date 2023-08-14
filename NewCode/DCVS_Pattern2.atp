@@ -1,0 +1,118 @@
+     // Note: the repeat count must be adjusted according the period of ts4.
+     // So, if the period of ts4 is 100ns, then a repeat count of 5000 results
+     // in a settling time of 100ns * 5000 = 0.5ms.
+     
+import tset TSet4;
+instruments = {
+     VDDa 		: DCVS;
+     VDD_LV_MIPI 	: DCVS;
+     VDD_VS_3_PRB 	: DCVS;
+     VDD_HV_EFUSE 	: DCVS;
+     VDD_VS_5_PRBa 	: DCVS;
+     VDD_VS_6_PRB 	: DCVS;
+     VDD_VS_7_PRB 	: DCVS;
+     VDD_HV_VREF 	: DCVS;
+     VDD_HV_ADC 	: DCVS;
+     VDD_VS_10_PRBa 	: DCVS;
+     VDD_HV_IO_ENETa 	: DCVS;
+     VDD_HV_IO_QSPI 	: DCVS;
+}
+
+srm_vector        
+MeasureCaps     ( $tset, AllDig )
+{
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		// ___ GATE ON ___
+     		(VDDa 		 : DCVS = Gate_On)
+     		(VDD_LV_MIPI     : DCVS = Gate_On)
+     		(VDD_VS_3_PRB    : DCVS = Gate_On)
+     		(VDD_HV_EFUSE    : DCVS = Gate_On)
+     		(VDD_VS_5_PRBa   : DCVS = Gate_On)
+     		(VDD_VS_6_PRB    : DCVS = Gate_On)
+     		(VDD_VS_7_PRB    : DCVS = Gate_On)
+     		(VDD_HV_VREF     : DCVS = Gate_On)
+     		(VDD_HV_ADC      : DCVS = Gate_On)
+     		(VDD_VS_10_PRBa  : DCVS = Gate_On)
+     		(VDD_HV_IO_ENETa : DCVS = Gate_On)
+		(VDD_HV_IO_QSPI  : DCVS = Gate_On)
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // settle time repeat.
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // Apply power to the caps.
+     		(VDDa 		 : DCVS = PSet VDDa_pset_2)
+     		(VDD_LV_MIPI     : DCVS = PSet MIPI_pset_2)
+     		(VDD_VS_3_PRB    : DCVS = PSet VS_3_PRB_pset_2)
+     		(VDD_HV_EFUSE    : DCVS = PSet EFUSE_pset_2)
+     		(VDD_VS_5_PRBa   : DCVS = PSet VS_5_PRBa_pset_2)
+     		(VDD_VS_6_PRB    : DCVS = PSet VS_6_PRB_pset_2)
+     		(VDD_VS_7_PRB    : DCVS = PSet VS_7_PRB_pset_2)
+     		(VDD_HV_VREF     : DCVS = PSet VREF_pset_2)
+     		(VDD_HV_ADC      : DCVS = PSet ADC_pset_2)
+     		(VDD_VS_10_PRBa  : DCVS = PSet VS_10_PRBa_pset_2)
+     		(VDD_HV_IO_ENETa : DCVS = PSet IO_ENETa_pset_2)
+		(VDD_HV_IO_QSPI  : DCVS = PSet IO_QSPI_pset_2)
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // Start charging caps for 0.5mS.
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ;
+     // First ramp capture.
+     		(VDDa 		 : DCVS = Trig VDDa_signal_label)
+     		(VDD_LV_MIPI     : DCVS = Trig MIPI_signal_label)
+     		(VDD_VS_3_PRB    : DCVS = Trig VS_3_PRB_signal_label)
+     		(VDD_HV_EFUSE    : DCVS = Trig EFUSE_signal_label)
+     		(VDD_VS_5_PRBa   : DCVS = Trig VS_5_PRBa_signal_label)
+     		(VDD_VS_6_PRB    : DCVS = Trig VS_6_PRB_signal_label)
+     		(VDD_VS_7_PRB    : DCVS = Trig VS_7_PRB_signal_label)
+     		(VDD_HV_VREF     : DCVS = Trig VREF_signal_label)
+     		(VDD_HV_ADC      : DCVS = Trig ADC_signal_label)
+     		(VDD_VS_10_PRBa  : DCVS = Trig VS_10_PRBa_signal_label)
+     		(VDD_HV_IO_ENETa : DCVS = Trig IO_ENETa_signal_label)
+		(VDD_HV_IO_QSPI  : DCVS = Trig IO_QSPI_signal_label)
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // Delay 5mS till 2nd capture.
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // Second ramp capture.
+     		(VDDa 		 : DCVS = Trig VDDa_signal_label)
+     		(VDD_LV_MIPI     : DCVS = Trig MIPI_signal_label)
+     		(VDD_VS_3_PRB    : DCVS = Trig VS_3_PRB_signal_label)
+     		(VDD_HV_EFUSE    : DCVS = Trig EFUSE_signal_label)
+     		(VDD_VS_5_PRBa   : DCVS = Trig VS_5_PRBa_signal_label)
+     		(VDD_VS_6_PRB    : DCVS = Trig VS_6_PRB_signal_label)
+     		(VDD_VS_7_PRB    : DCVS = Trig VS_7_PRB_signal_label)
+     		(VDD_HV_VREF     : DCVS = Trig VREF_signal_label)
+     		(VDD_HV_ADC      : DCVS = Trig ADC_signal_label)
+     		(VDD_VS_10_PRBa  : DCVS = Trig VS_10_PRBa_signal_label)
+     		(VDD_HV_IO_ENETa : DCVS = Trig IO_ENETa_signal_label)
+		(VDD_HV_IO_QSPI  : DCVS = Trig IO_QSPI_signal_label)
+          	> TSet4  00000000000000000000000000000000000 ; 
+     // Wait 0.5mS
+     		repeat 5000
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+          	> TSet4  00000000000000000000000000000000000 ; 
+halt            > TSet4  00000000000000000000000000000000000 ; 
+}

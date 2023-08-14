@@ -1,0 +1,9 @@
+#Minimum License Required By Job:                 8.10.14_CelerintE.xlsm                                                          
+
+#FEATURE NAME                 ENABLED LEVEL    USED LICENSE COUNT   VERSION              
+HSD_MemoryDepth               8                16                   0.0                  
+HSD_Speed                     300              16                   0.0                  
+HSD1600_Channels              1                8                    0.0                  
+IG-XL_DataTool_Jaguar         Yes              1                    8.3                  
+NumSlots                      1                13                   0.0                  
+UltraVIChannel                1                72                   0.0                  

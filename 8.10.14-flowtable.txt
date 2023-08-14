@@ -1,0 +1,97 @@
+DTFlowtableSheet,version=2.3:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Flow Table																																															
+						Flow Domain:																																										
+			Gate			Command				Limits		Datalog Display Results			Bin Number		Sort Number			Action			Group				Device			Debug		CT Profile Data					CT Profile Data											
+	Label	Enable	Job	Part	Env	Opcode	Parameter	TName	TNum	LoLim	HiLim	Scale	Units	Format	Pass	Fail	Pass	Fail	Result	Pass	Fail	State	Specifier	Sense	Condition	Name	Sense	Condition	Name	Assume	Sites	Elapsed Time (s)	Background Type	Serialize	Resource Lock	Flow Step Locked	Comment	Background Type	Serialize	Resource Lock	Flow Step Locked	Comment						
+						set-error-bin										99		99																														
+						nop	TDR	initial_TDR																																								
+						Use-Limit	TDR																																									
+						nop	UC01	Propagation_Delay								2		2	Fail																												End Dte TBD	
+						Use-Limit	UC01																																									
+						Use-Limit	UC01	Func_TDR_Verification								2		4	Fail																												End Date Oct 2	
+						Use-Limit	UC01			'-1	1					2		13	Fail																												End Date Sept 20	
+						Use-Limit	UC01	Pogo_Pin_Cont								2		3	Fail																												End Dte TBD	
+						Test	UC12	Channel Leakage								2		13	Fail																													
+						Use-Limit	UC12			'-0.0000001	0.0000001																																					
+						Use-Limit	UC12			'-0.0000001	0.0000001																																					
+						Use-Limit	UC12	VI80_Decoupling_Cap								2		18	Fail																												End Date Sept 19	
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Use-Limit	UC12			0.000008	0.000012																																					
+						Test	UC17	VI80_Decoupling_Cap								2		18	Fail																												End Date Sept 19	
+						Use-Limit	UC17			0.000008	0.000012																																					
+						Test	UC14	OpAmps_SAR_ADC_INPUTS								2		15	Fail																													
+						Use-Limit	UC14			'-0.75	'-0.7																																					
+						Use-Limit	UC14			'-0.75	'-0.7																																					
+						Test	UC04	K1_RELAY_FUNC								2		5	Fail																													
+						Use-Limit	UC04			'-0.75	'-0.7					2		5	Fail																													
+						Test	UC05	K2_RELAY_FUNC								2		6	Fail																													
+						Use-Limit	UC05			4900	5100					2		6	Fail																													
+						Use-Limit	UC05			4900	5100					2		6	Fail																													
+						Test	UC08	ADG5412BRUZ_SWITCHES								2		9	Fail																													
+						Use-Limit	UC08			'-0.75	'-0.7							9	Fail																													
+						Use-Limit	UC08			'-0.75	'-0.7							9	Fail																													
+						Test	UC06	DECODER_S1_Func								2		7	Fail																													
+						Use-Limit	UC06			'-0.75	'-0.7																																					
+						Use-Limit	UC06			1	1																																					
+						Test	UC07	DECODER_S2_Func								2		8	Fail																													
+						Use-Limit	UC07			'-0.75	'-0.7																																					
+						Use-Limit	UC07			1	1																																					
+						Test	UC10	All_S2_Decoder_Leak								2		11	Fail																													
+						Use-Limit	UC10			'-0.0000001	0.0000001																																					
+						Use-Limit	UC10			'-0.0000001	0.0000001																																					
+						Use-Limit	UC10			'-0.0000001	0.0000001																																					
+						Use-Limit	UC10			'-0.0000001	0.0000001																																					
+						Test	UC11	All_S1_Decoder_Leak								2		12	Fail																													
+						Use-Limit	UC11			'-0.0000001	0.0000001																																					
+						Use-Limit	UC11			'-0.0000001	0.0000001																																					
+						Test	UC09	VS256_Cap_Leak								2		10	Fail																													
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Use-Limit	UC09			'-0.0001	0.0001																																					
+						Test	UC13	VS256_Cap_Meas_Conn								2		14	Fail																													
+						Use-Limit	UC13			0.00003	0.00005																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.000019	0.000025																																					
+						Use-Limit	UC13			0.000012	0.000018																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						Use-Limit	UC13			0.00002	0.000026																																					
+						Use-Limit	UC13			0.000019	0.000025																																					
+						Use-Limit	UC13			0.000009	0.000013																																					
+						nop	UC15	Impedance_Resp_Profile								2		16	Fail																													
+						nop	UC16	Impedance_Profile_Tolerance								2		17	Fail																													
+						set-device									1		1	1	Pass																													
+						stop																																										

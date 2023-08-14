@@ -1,0 +1,22 @@
+terJob	8.30_CelerintB.xlsm
+terPart	
+terEnv	
+terTI	UC09
+terAC	
+terDC	
+terGlobalSpecsPreviouslyAdded	Vcl_default,Vch_default,Vph_default
+terName	8.30_CelerintB.xlsm
+terActiveSheetName	8.10.14-flowtable
+terChanMap	ChanMap28x
+terChanMapViewMode	Pogo
+terJob	8.30_CelerintB.xlsm
+terPart	
+terEnv	
+terTI	UC13
+terAC	
+terDC	
+terGlobalSpecsPreviouslyAdded	Vcl_default,Vch_default,Vph_default
+terName	8.30_CelerintB.xlsm
+terActiveSheetName	8.10.14-flowtable
+terChanMap	ChanMap28x
+terChanMapViewMode	Pogo

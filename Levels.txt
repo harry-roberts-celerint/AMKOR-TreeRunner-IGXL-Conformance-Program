@@ -1,0 +1,15 @@
+DTLevelSheet,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pin Levels					
+						
+	Pin/Group	Seq.	Parameter	Value	Comment	
+	AllDig		Vil	0		
+	AllDig		Vih	2.97		
+	AllDig		Vol	1.815		
+	AllDig		Voh	2.97		
+	AllDig		Iol	0.0001		
+	AllDig		Ioh	-0.0001		
+	AllDig		Vt	3.3		
+	AllDig		Vcl	-1		
+	AllDig		Vch	6		
+	AllDig		VoutLoTyp	0		
+	AllDig		VoutHiTyp	0		
+	AllDig		DriverMode	Largeswing-HiZ		

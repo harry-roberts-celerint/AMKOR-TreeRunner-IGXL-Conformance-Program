@@ -1,0 +1,49 @@
+Public Function UC01_Propagation_Delay(pgroup As String)
+    Dim i As Integer
+    Dim j As Integer
+    Dim site As Variant
+    Dim value As Double
+    Dim pin_name As String
+    Dim propogation_speed As Double
+    Dim path_start_time As Double
+    Dim path_stop_time As Double
+    Dim path_speed As Double
+    Dim PinArr() As String, PinCount As Long
+    
+    propogation_speed = 0.000000000165
+    
+    TheExec.DataManager.DecomposePinList pgroup, PinArr, PinCount
+    
+   
+' 1. Create length constants for transmission lines of known length.
+' 2. Calculate propagation delay (speed) using speed = trace length / TDR test fixture transit time.
+    
+    For i = 0 To PinCount - 1
+        pin_name = Worksheets("TraceLengths").Range("A1").offset(1 + i).value
+                   Worksheets("TraceLengths").Range("A1").offset(PinCount + 15 + i).value = pin_name
+    Next i
+    
+    For Each site In TheExec.Sites.Selected
+        For i = 0 To PinCount - 1
+            value = Worksheets("TraceLengths").Range("A1").offset(1 + i, 1 + site).value
+            value = value / 1000                'Convert mils to inches.
+            
+            path_start_time = Worksheets("TDR_WorkSheet").Range("A1").offset(1 + i, 1 + site).value
+            path_stop_time = Worksheets("TDR_WorkSheet").Range("A1").offset(PinCount + 2 + i, 1 + site).value
+            path_speed = path_stop_time - path_start_time
+            
+            value = value * path_speed
+                    Worksheets("TraceLengths").Range("A1").offset(PinCount + 15 + i, 1 + site).value = value
+            
+            
+            TheExec.Flow.TestLimitIndex = 0
+            TheExec.Flow.TestLimit ResultVal:=value, _
+                                unit:=unitNone, _
+                                forceUnit:=unitNone, _
+                                ForceResults:=tlForceFlow, _
+                                pinname:=pin_name, _
+                                TName:="UC01_Prop_Dly"
+        Next i
+    Next site
+    
+End Function

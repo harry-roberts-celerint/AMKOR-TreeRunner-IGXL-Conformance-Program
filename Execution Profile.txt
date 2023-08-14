@@ -1,0 +1,39 @@
+DFF 1.0							
+							
+	IG-XL Version		8.10.14_uflx (P3) 01.20.15.08.58				
+	Test Program		F:\Oct28\8.10.14_CelerintB.xlsm				
+	Date		43766.6305555556				
+	User		ultraflexdev				
+	Computer Name		T06UFS-00				
+	Computer OS		Windows 7 Service Pack 1				
+	Computer Speed		~3292 MhzGenuineIntel Intel64 Family 6 Model 45 Stepping 7 (8 Processor(s))				
+	Computer Memory		8310496 KB RAM				
+	Job		8.10.14_CelerintB.xlsm				
+	Channel Map		ChanMap28x				
+	Part						
+	Environment						
+	Sites		28				
+							
+							
+	Total Execution Time		235.613941654209				
+							
+	Flow Step	Line	Total	PreBody	Body	PostBody	
+	PreJob Reset	0	0.0235423347648655	0	0	0	
+	set-error-bin	5	0.00228957035369244	0	0	0	
+	nop	6	8.36710666969331E-06	0	0	0	
+	nop	8	8.36710851710443E-06	0	0	0	
+	UC12	13	0.0767786013550182	0	0	0	
+	UC14	35	0.0155534577320786	0	0	0	
+	UC04	38	234.834274938802	0	0	0	
+	nop	42	0.00001147755773796	0	0	0	
+	nop	45	0.0000124106924825451	0	0	0	
+	nop	48	0.0000114775556240954	0	0	0	
+	nop	57	0.0000071229296700448	0	0	0	
+	nop	62	0.0000242303986936587	0	0	0	
+	UC09	65	0.487587411391587	0	0	0	
+	UC13	84	0.107449494086175	0	0	0	
+	nop	97	0.000012721737219179	0	0	0	
+	nop	98	0.0000108554676571782	0	0	0	
+	set-device	99	0.0000217420387933043	0	0	0	
+	stop	100	0.00104912332059643	0	0	0	
+	PostJob Reset	9998	0.0132013362500931	0	0	0	

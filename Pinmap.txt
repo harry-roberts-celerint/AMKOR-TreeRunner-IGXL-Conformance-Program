@@ -1,0 +1,349 @@
+DTPinMap,version=2.1:platform=Jaguar:toprow=-1:leftcol=-1:rightcol=-1	Pin Map				
+			USL Tag:		
+	Group Name	Pin Name	Type	Comment	
+		AR_CLKP_0	I/O		
+		AR_CLKN_0	I/O		
+		AR_TXP_0	Unknown		
+		AR_TXN_0	Unknown		
+		AR_TXP_1	Unknown		
+		AR_TXN_1	Unknown		
+		AR_TXP_2	Unknown		
+		AR_TXN_2	Unknown		
+		AR_TXP_3	Unknown		
+		AR_TXN_3	Unknown		
+		CSI_CLKP	Unknown		
+		CSI_CLKN	Unknown		
+		CSI_LANE0P	Unknown		
+		CSI_LANE0N	Unknown		
+		CSI_LANE1P	Unknown		
+		CSI_LANE1N	Unknown		
+		CSI_LANE2P	Unknown		
+		CSI_LANE2N	Unknown		
+		CSI_LANE3P	Unknown		
+		CSI_LANE3N	Unknown		
+		CSI1_CLKP	Unknown		
+		CSI1_CLKN	Unknown		
+		CSI1_LANE0P	Unknown		
+		CSI1_LANE0N	Unknown		
+		CSI1_LANE1P	Unknown		
+		CSI1_LANE1N	Unknown		
+		CSI1_LANE2P	Unknown		
+		CSI1_LANE2N	Unknown		
+		CSI1_LANE3P	Unknown		
+		CSI1_LANE3N	Unknown		
+		LFAST_RXP	Unknown		
+		LFAST_RXN	Unknown		
+		LFAST_TXP	Unknown		
+		LFAST_TXN	Unknown		
+		MTI_P0	Unknown		
+		MTI_N0	Unknown		
+		MTI_P1	Unknown		
+		MTI_N1	Unknown		
+		MTI_P2	Unknown		
+		MTI_N2	Unknown		
+		MTI_P3	Unknown		
+		MTI_N3	Unknown		
+		ADC_CH4	Unknown		
+		ATX_S_VI	Unknown		
+		ATX_S_DIFF	Unknown		
+		ADC_CH5	Unknown		
+		ATX_F_VI	Unknown		
+		ATX_F_DIFF	Unknown		
+		ADC_CH6	Unknown		
+		SAR_CAL	Unknown		
+		SAR_CAL_DIFF	Unknown		
+		ADC_CH7	Unknown		
+		SAR_CAL2	Unknown		
+		SAR_CAL2_DIFF	Unknown		
+		PL_1	I/O		
+		PL_2	I/O		
+		PL_3	I/O		
+		PL_4	I/O		
+		PL_7	I/O		
+		PH_13	I/O		
+		PH_4	I/O		
+		PD_6	I/O		
+		PG_10	I/O		
+		PD_0	I/O		
+		PD_3	I/O		
+		PI_2	I/O		
+		PD_5	I/O		
+		PH_5	I/O		
+		NMI	I/O		
+		PC_11	I/O		
+		PC_12	I/O		
+		PC_15	I/O		
+		PD_2	I/O		
+		PD_4	I/O		
+		PG_11	I/O		
+		PB_4	I/O		
+		PB_5	I/O		
+		PF_14	Unknown		
+		PG_8	Unknown		
+		PG_9	Unknown		
+		PH_8	Unknown		
+		PH_9	Unknown		
+		PL_0	I/O		
+		PL_6	Unknown		
+		PL_5	Unknown		
+		TCK	I/O		
+		JCOMP	I/O		
+		TESTMODE	I/O		
+		ADC0_CH0	Unknown		
+		ADC0_CH1	Unknown		
+		ADC0_CH2	Unknown		
+		ADC0_CH3	Unknown		
+		ADC1_CH0	Unknown		
+		ADC1_CH1	Unknown		
+		ADC1_CH2	Unknown		
+		ADC1_CH3	Unknown		
+		FCCU_F_0	Unknown		
+		FCCU_F_1	Unknown		
+		PA_0	Unknown		
+		PA_1	Unknown		
+		PA_10	Unknown		
+		PA_11	Unknown		
+		PA_12	Unknown		
+		PA_13	Unknown		
+		PA_14	Unknown		
+		PA_15	Unknown		
+		PA_2	Unknown		
+		PA_3	Unknown		
+		PA_4	Unknown		
+		PA_5	Unknown		
+		RESET_B	I/O		
+		PA_6	Unknown		
+		PA_7	Unknown		
+		PA_8	Unknown		
+		PA_9	Unknown		
+		PB_0	Unknown		
+		PB_1	Unknown		
+		PB_2	Unknown		
+		PB_3	Unknown		
+		PB_6	Unknown		
+		PC_10	Unknown		
+		PD_1	Unknown		
+		PD_11	Unknown		
+		PD_14	Unknown		
+		PD_8	Unknown		
+		PE_13	Unknown		
+		PE_15	Unknown		
+		PF_0	Unknown		
+		PF_15	Unknown		
+		PG_5	Unknown		
+		PH_11	Unknown		
+		PH_12	Unknown		
+		PH_6	Unknown		
+		PH_7	Unknown		
+		PI_0	Unknown		
+		PI_1	Unknown		
+		PI_4	Unknown		
+		PI_5	Unknown		
+		PI_6	Unknown		
+		PI_7	Unknown		
+		PI_8	Unknown		
+		PI_9	Unknown		
+		PK_0	Unknown		
+		PK_1	Unknown		
+		PK_2	Unknown		
+		PK_3	Unknown		
+		PK_4	Unknown		
+		PK_5	Unknown		
+		PK_6	Unknown		
+		PK_7	Unknown		
+		TMU_ANODE_IO	Unknown		
+		TMU_CATHODE_IO	Unknown		
+		POR_B	I/O		
+		POST_AN	I/O		
+		REXT_CSI	Unknown		
+		TMS	I/O		
+		XOSC_EXTAL	I/O		
+		XOSC_XTAL	I/O		
+		VDDa	Power		
+		VDDb	Power		
+		VDDc	Power		
+		VDDd	Power		
+		PMIC_SENSE	Unknown		
+		VDD_LV_MIPI	Power		
+		VDD_VS_3_PRB	Power		
+		VDD_LV_PLL	Power		
+		VDD_LV_PLL_AUR	Power		
+		VDD_HV_EFUSE	Power		
+		VDD_VS_5_PRBa	Power		
+		VDD_VS_5_PRBb	Power		
+		VDD_HV_IO_LFAST	Power		
+		VDD_HV_IO_AUR	Power		
+		VDD_HV_IO_MTI	Power		
+		VDD_HV_MIPI	Power		
+		VDD_VS_6_PRB	Power		
+		VDD_HV_FIRC	Power		
+		VDD_HV_PLL	Power		
+		VDD_HV_FXOSC	Power		
+		VDD_VS_7_PRB	Power		
+		VDD_HV_TMU	Power		
+		VDD_HV_PLL_AUR	Power		
+		VDD_HV_LFASTPLL	Power		
+		VDD_HV_VREF	Power		
+		VDD_HV_ADC	Power		
+		VDD_VS_10_PRBa	Power		
+		VDD_VS_10_PRBb	Power		
+		VDD_HV_IO1	Power		
+		VDD_HV_IO2	Power		
+		VDD_HV_IO_ENETa	Power		
+		VDD_HV_IO_ENETb	Power		
+		VDD_HV_IO_QSPI	Power		
+		VREFH_ADC0	Unknown		
+		VREFH_ADC0_DIFF	Unknown		
+		VREFH_ADC1	Unknown		
+		VREFH_ADC1_DIFF	Unknown		
+		TMU_ANODE	Unknown		
+		TMU_ANODE_DIFF	Unknown		
+		TMU_CATHODE	Unknown		
+		TMU_CATHODE_DIFF	Unknown		
+		DCVI_DGS	Unknown		
+		SAR_ADC_AWG	Unknown		
+		K_MTI_LVDS_1	Unknown		
+		K_MTI_LVDS_2	Unknown		
+		K_LFAST_TXC	Unknown		
+		K_LFAST_RXC	Unknown		
+		K_LFAST_TERM	Unknown		
+		K_REXT_CSI	Unknown		
+		K_SAR_CAL	Unknown		
+		K_ADC_SRC	Unknown		
+		K_ATX_S	Unknown		
+		K_ATX_F	Unknown		
+		K_ATX_PD	Utility		
+		K_TMU	Unknown		
+		VSS	Gnd		
+		K_VI_ADJUST	Utility		
+		K_S1_EN	Utility		
+		K_S1_A0	Utility		
+		K_S1_A1	Utility		
+		K_S2_EN	Utility		
+		K_S2_A0	Utility		
+		K_S2_A1	Utility		
+		K_S3_Grp1	Utility		
+		K_S3_Grp2	Utility		
+	LeakPins	AR_CLKP_0	I/O	1	
+	LeakPins	AR_CLKN_0		2	
+	LeakPins	PL_1		3	
+	LeakPins	PL_2		4	
+	LeakPins	PL_3		5	
+	LeakPins	PL_4		6	
+	LeakPins	PL_7		7	
+	LeakPins	PH_13		8	
+	LeakPins	PH_4		9	
+	LeakPins	PD_6		10	
+	LeakPins	PG_10		11	
+	LeakPins	PD_0		12	
+	LeakPins	PD_3		13	
+	LeakPins	PI_2		14	
+	LeakPins	PD_5		15	
+	LeakPins	PH_5		16	
+	LeakPins	NMI		17	
+	LeakPins	PC_11		18	
+	LeakPins	PC_12		19	
+	LeakPins	PC_15		20	
+	LeakPins	PD_2		21	
+	LeakPins	PD_4		22	
+	LeakPins	PG_11		23	
+	LeakPins	PB_4		24	
+	LeakPins	PB_5		25	
+	LeakPins	PL_0		26	
+	LeakPins	TCK		27	
+	LeakPins	JCOMP		28	
+	LeakPins	TESTMODE		29	
+	LeakPins	RESET_B		30	
+	LeakPins	POR_B		31	
+	LeakPins	POST_AN		32	
+	LeakPins	TMS		33	
+	LeakPins	XOSC_EXTAL		34	
+	LeakPins	XOSC_XTAL		35	
+	DCVS_PINSa	VDDa	Power		
+	DCVS_PINSa	VDD_LV_MIPI			
+	DCVS_PINSa	VDD_VS_3_PRB			
+	DCVS_PINSa	VDD_HV_EFUSE			
+	DCVS_PINSa	VDD_VS_5_PRBa			
+	DCVS_PINSa	VDD_VS_6_PRB			
+	DCVS_PINSa	VDD_VS_7_PRB			
+	DCVS_PINSa	VDD_HV_VREF			
+	DCVS_PINSa	VDD_HV_ADC			
+	DCVS_PINSa	VDD_VS_10_PRBa			
+	DCVS_PINSa	VDD_HV_IO_ENETa			
+	DCVS_PINSa	VDD_HV_IO_QSPI			
+	DCVS_PINSb	VDDb	Power		
+	DCVS_PINSb	VDD_VS_5_PRBb			
+	DCVS_PINSb	VDD_VS_10_PRBb			
+	DCVS_PINSb	VDD_HV_IO_ENETb			
+	DCVS_PINSc	VDDc	Power		
+	DCVS_PINSd	VDDd	Power		
+	IO_PINS	AR_CLKP_0	I/O		
+	IO_PINS	AR_CLKN_0			
+	IO_PINS	PL_1			
+	IO_PINS	PL_2			
+	IO_PINS	PL_3			
+	IO_PINS	PL_4			
+	IO_PINS	PL_7			
+	IO_PINS	PH_13			
+	IO_PINS	PH_4			
+	IO_PINS	PD_6			
+	IO_PINS	PG_10			
+	IO_PINS	PD_0			
+	IO_PINS	PD_3			
+	IO_PINS	PI_2			
+	IO_PINS	PD_5			
+	IO_PINS	PH_5			
+	IO_PINS	NMI			
+	IO_PINS	PC_11			
+	IO_PINS	PC_12			
+	IO_PINS	PC_15			
+	IO_PINS	PD_2			
+	IO_PINS	PD_4			
+	IO_PINS	PG_11			
+	IO_PINS	PB_4			
+	IO_PINS	PB_5			
+	IO_PINS	PL_0			
+	IO_PINS	TCK			
+	IO_PINS	JCOMP			
+	IO_PINS	TESTMODE			
+	IO_PINS	RESET_B			
+	IO_PINS	POR_B			
+	IO_PINS	POST_AN			
+	IO_PINS	TMS			
+	IO_PINS	XOSC_EXTAL			
+	IO_PINS	XOSC_XTAL			
+	AllDig	AR_CLKP_0	I/O	1	
+	AllDig	AR_CLKN_0		2	
+	AllDig	PL_1		3	
+	AllDig	PL_2		4	
+	AllDig	PL_3		5	
+	AllDig	PL_4		6	
+	AllDig	PL_7		7	
+	AllDig	PH_13		8	
+	AllDig	PH_4		9	
+	AllDig	PD_6		10	
+	AllDig	PG_10		11	
+	AllDig	PD_0		12	
+	AllDig	PD_3		13	
+	AllDig	PI_2		14	
+	AllDig	PD_5		15	
+	AllDig	PH_5		16	
+	AllDig	NMI		17	
+	AllDig	PC_11		18	
+	AllDig	PC_12		19	
+	AllDig	PC_15		20	
+	AllDig	PD_2		21	
+	AllDig	PD_4		22	
+	AllDig	PG_11		23	
+	AllDig	PB_4		24	
+	AllDig	PB_5		25	
+	AllDig	PL_0		26	
+	AllDig	TCK		27	
+	AllDig	JCOMP		28	
+	AllDig	TESTMODE		29	
+	AllDig	RESET_B		30	
+	AllDig	POR_B		31	
+	AllDig	POST_AN		32	
+	AllDig	TMS		33	
+	AllDig	XOSC_EXTAL		34	
+	AllDig	XOSC_XTAL		35	
